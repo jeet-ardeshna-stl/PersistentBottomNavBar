@@ -313,6 +313,6 @@ Future<T> pushNewScreenWithRouteSettings<T extends Object>(BuildContext context,
     withNavBar = true;
   }
   return Navigator.of(context, rootNavigator: !withNavBar).push(
-      CupertinoPageRoute(
+      MaterialPageRoute(
           settings: settings, builder: (BuildContext context) => screen));
 }
