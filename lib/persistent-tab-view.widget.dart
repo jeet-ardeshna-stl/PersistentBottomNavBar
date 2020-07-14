@@ -2,6 +2,7 @@
 // For queries, contact: bilalscheema@gmail.com
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'persistent-tab-view.dart';
 
 ///A highly customizable persistent navigation bar for flutter.
@@ -287,8 +288,10 @@ Future<T> pushNewScreen<T extends Object>(BuildContext context,
     withNavBar = true;
   }
   return Navigator.of(context, rootNavigator: !withNavBar).push(
-    MaterialPageRoute(
-        fullscreenDialog: true, builder: (BuildContext context) => screen),
+    PageTransition(
+      type: PageTransitionType.leftToRight,
+      child: screen,
+    ),
   );
 }
 
@@ -315,9 +318,10 @@ Future<T> pushNewScreenWithRouteSettings<T extends Object>(BuildContext context,
     withNavBar = true;
   }
   return Navigator.of(context, rootNavigator: !withNavBar).push(
-    MaterialPageRoute(
-        settings: settings,
-        fullscreenDialog: true,
-        builder: (BuildContext context) => screen),
+    PageTransition(
+      type: PageTransitionType.leftToRight,
+      settings: settings,
+      child: screen,
+    ),
   );
 }
