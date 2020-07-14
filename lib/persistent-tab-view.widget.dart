@@ -289,7 +289,7 @@ Future<T> pushNewScreen<T extends Object>(BuildContext context,
   }
   return Navigator.of(context, rootNavigator: !withNavBar).push(
     PageTransition(
-      type: PageTransitionType.leftToRight,
+      type: PageTransitionType.fade,
       child: screen,
     ),
   );
@@ -319,7 +319,7 @@ Future<T> pushNewScreenWithRouteSettings<T extends Object>(BuildContext context,
   }
   return Navigator.of(context, rootNavigator: !withNavBar).push(
     PageTransition(
-      type: PageTransitionType.leftToRight,
+      type: PageTransitionType.fade,
       settings: settings,
       child: screen,
     ),
