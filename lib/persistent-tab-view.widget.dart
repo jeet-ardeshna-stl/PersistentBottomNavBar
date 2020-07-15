@@ -288,10 +288,11 @@ Future<T> pushNewScreen<T extends Object>(BuildContext context,
     withNavBar = true;
   }
   return Navigator.of(context, rootNavigator: !withNavBar).push(
-    PageTransition(
-      type: PageTransitionType.fade,
-      child: screen,
-    ),
+    // PageTransition(
+    //   type: PageTransitionType.rightToLeftWithFade,
+    //   child: screen,
+    // ),
+    CupertinoPageRoute(builder: (BuildContext context) => screen),
   );
 }
 
@@ -318,10 +319,14 @@ Future<T> pushNewScreenWithRouteSettings<T extends Object>(BuildContext context,
     withNavBar = true;
   }
   return Navigator.of(context, rootNavigator: !withNavBar).push(
-    PageTransition(
-      type: PageTransitionType.fade,
-      settings: settings,
-      child: screen,
-    ),
-  );
+      MaterialPageRoute(
+          settings: settings, builder: (BuildContext context) => screen)
+      // PageTransition(
+      //   type: PageTransitionType.fade,
+      //   settings: settings,
+      //   child: screen,
+      // ),
+      );
 }
+
+class CustomPageRoute extends MaterialPageRoute {}
