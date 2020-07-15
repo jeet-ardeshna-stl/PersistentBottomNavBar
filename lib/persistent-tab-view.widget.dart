@@ -2,6 +2,7 @@
 // For queries, contact: bilalscheema@gmail.com
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'persistent-tab-view.dart';
 
 ///A highly customizable persistent navigation bar for flutter.
@@ -286,8 +287,12 @@ Future<T> pushNewScreen<T extends Object>(BuildContext context,
   } else if (withNavBar == null) {
     withNavBar = true;
   }
-  return Navigator.of(context, rootNavigator: !withNavBar)
-      .push(MaterialPageRoute(builder: (BuildContext context) => screen));
+  return Navigator.of(context, rootNavigator: !withNavBar).push(
+    PageTransition(
+      type: PageTransitionType.leftToRight,
+      child: screen,
+    ),
+  );
 }
 
 Future<T> pushDynamicScreen<T extends Object>(BuildContext context,
@@ -313,8 +318,12 @@ Future<T> pushNewScreenWithRouteSettings<T extends Object>(BuildContext context,
     withNavBar = true;
   }
   return Navigator.of(context, rootNavigator: !withNavBar).push(
-      MaterialPageRoute(
-          settings: settings, builder: (BuildContext context) => screen));
+    PageTransition(
+      type: PageTransitionType.leftToRight,
+      settings: settings,
+      child: screen,
+    ),
+  );
 }
 
 // class CustomPageRoute extends MaterialPageRoute {
