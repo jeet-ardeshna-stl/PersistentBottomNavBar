@@ -294,10 +294,7 @@ Future<T> pushNewScreen<T extends Object>(BuildContext context,
     // ),
     // MaterialPageRoute(builder: (BuildContext context) => screen),
     PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          MaterialPageRoute(
-        builder: (_) => screen,
-      ) as Widget,
+      pageBuilder: (context, animation, secondaryAnimation) => screen,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return SlideTransition(
           position: new Tween<Offset>(
