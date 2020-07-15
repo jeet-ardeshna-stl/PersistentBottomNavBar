@@ -280,19 +280,26 @@ class _PersistentTabViewState extends State<PersistentTabView> {
   }
 }
 
-Future<T> pushNewScreen<T extends Object>(BuildContext context,
-    {@required Widget screen, bool withNavBar, bool platformSpecific = false}) {
+Future<T> pushNewScreen<T extends Object>(
+  BuildContext context, {
+  @required Widget screen,
+  bool withNavBar,
+  bool platformSpecific = false,
+  bool withFade = false,
+}) {
   if (platformSpecific && withNavBar == null) {
     withNavBar = Platform.isAndroid ? false : true;
   } else if (withNavBar == null) {
     withNavBar = true;
   }
-  return Navigator.of(context, rootNavigator: !withNavBar).push(
-    PageTransition(
-      type: PageTransitionType.fade,
-      child: screen,
-    ),
-  );
+  return withFade
+      ? Navigator.of(context, rootNavigator: !withNavBar).push(
+          PageTransition(
+            type: PageTransitionType.fade,
+            child: screen,
+          ),
+        )
+      : MaterialPageRoute(builder: (BuildContext context) => screen);
 }
 
 Future<T> pushDynamicScreen<T extends Object>(BuildContext context,
@@ -307,32 +314,30 @@ Future<T> pushDynamicScreen<T extends Object>(BuildContext context,
   return Navigator.of(context, rootNavigator: !withNavBar).push(screen);
 }
 
-Future<T> pushNewScreenWithRouteSettings<T extends Object>(BuildContext context,
-    {@required Widget screen,
-    @required RouteSettings settings,
-    bool withNavBar,
-    bool platformSpecific = false}) {
+Future<T> pushNewScreenWithRouteSettings<T extends Object>(
+  BuildContext context, {
+  @required Widget screen,
+  @required RouteSettings settings,
+  bool withNavBar,
+  bool platformSpecific = false,
+  bool withFade = false,
+}) {
   if (platformSpecific && withNavBar == null) {
     withNavBar = Platform.isAndroid ? false : true;
   } else if (withNavBar == null) {
     withNavBar = true;
   }
-  return Navigator.of(context, rootNavigator: !withNavBar).push(
-    PageTransition(
-      type: PageTransitionType.fade,
-      settings: settings,
-      child: screen,
-    ),
-  );
-}
 
-// class CustomPageRoute extends MaterialPageRoute {
-//   // @override
-//   Widget buildTransitions(BuildContext context, Animation<double> animation,
-//       Animation<double> secondaryAnimation, Widget child) {
-//     // final PageTransitionsTheme theme = Theme.of(context).pageTransitionsTheme;
-//     // return a;
-//     // theme.buildTransitions(
-//     //     this, context, animation, secondaryAnimation, child);
-//   }
-// }
+  return withFade
+      ? Navigator.of(context, rootNavigator: !withNavBar).push(
+          PageTransition(
+            type: PageTransitionType.fade,
+            settings: settings,
+            child: screen,
+          ),
+        )
+      : MaterialPageRoute(
+          settings: settings,
+          builder: (BuildContext context) => screen,
+        );
+}
