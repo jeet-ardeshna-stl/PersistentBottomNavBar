@@ -299,7 +299,9 @@ Future<T> pushNewScreen<T extends Object>(
             child: screen,
           ),
         )
-      : MaterialPageRoute(builder: (BuildContext context) => screen);
+      : Navigator.of(context, rootNavigator: !withNavBar).push(
+          MaterialPageRoute(builder: (BuildContext context) => screen),
+        );
 }
 
 Future<T> pushDynamicScreen<T extends Object>(BuildContext context,
@@ -336,8 +338,10 @@ Future<T> pushNewScreenWithRouteSettings<T extends Object>(
             child: screen,
           ),
         )
-      : MaterialPageRoute(
-          settings: settings,
-          builder: (BuildContext context) => screen,
+      : Navigator.of(context, rootNavigator: !withNavBar).push(
+          MaterialPageRoute(
+            settings: settings,
+            builder: (BuildContext context) => screen,
+          ),
         );
 }
