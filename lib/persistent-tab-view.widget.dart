@@ -292,7 +292,28 @@ Future<T> pushNewScreen<T extends Object>(BuildContext context,
     //   type: PageTransitionType.rightToLeftWithFade,
     //   child: screen,
     // ),
-    MaterialPageRoute(builder: (BuildContext context) => screen),
+    // MaterialPageRoute(builder: (BuildContext context) => screen),
+    PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          MaterialPageRoute(
+        builder: (_) => screen,
+      ) as Widget,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return SlideTransition(
+          position: new Tween<Offset>(
+            begin: const Offset(-1.0, 0.0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: new SlideTransition(
+            position: new Tween<Offset>(
+              begin: Offset.zero,
+              end: const Offset(-1.0, 0.0),
+            ).animate(secondaryAnimation),
+            child: child,
+          ),
+        );
+      },
+    ),
   );
 }
 
@@ -319,14 +340,47 @@ Future<T> pushNewScreenWithRouteSettings<T extends Object>(BuildContext context,
     withNavBar = true;
   }
   return Navigator.of(context, rootNavigator: !withNavBar).push(
-      MaterialPageRoute(
-          settings: settings, builder: (BuildContext context) => screen)
-      // PageTransition(
-      //   type: PageTransitionType.fade,
-      //   settings: settings,
-      //   child: screen,
-      // ),
-      );
+    PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            MaterialPageRoute(
+              builder: (_) => screen,
+              settings: settings,
+            ) as Widget,
+        settings: settings,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return SlideTransition(
+            position: new Tween<Offset>(
+              begin: const Offset(-1.0, 0.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: new SlideTransition(
+              position: new Tween<Offset>(
+                begin: Offset.zero,
+                end: const Offset(-1.0, 0.0),
+              ).animate(secondaryAnimation),
+              child: child,
+            ),
+          );
+        }
+        // screen),
+        // MaterialPageRoute(
+        //     settings: settings, builder: (BuildContext context) => screen)
+        //     PageTransition(
+        //   type: PageTransitionType.fade,
+        //   settings: settings,
+        //   child: screen,
+        // ),
+        ),
+  );
 }
 
-class CustomPageRoute extends MaterialPageRoute {}
+// class CustomPageRoute extends MaterialPageRoute {
+//   // @override
+//   Widget buildTransitions(BuildContext context, Animation<double> animation,
+//       Animation<double> secondaryAnimation, Widget child) {
+//     // final PageTransitionsTheme theme = Theme.of(context).pageTransitionsTheme;
+//     // return a;
+//     // theme.buildTransitions(
+//     //     this, context, animation, secondaryAnimation, child);
+//   }
+// }
