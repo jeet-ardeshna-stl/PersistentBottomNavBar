@@ -292,7 +292,7 @@ Future<T> pushNewScreen<T extends Object>(BuildContext context,
     //   type: PageTransitionType.rightToLeftWithFade,
     //   child: screen,
     // ),
-    CupertinoPageRoute(builder: (BuildContext context) => screen),
+    MaterialPageRoute(builder: (BuildContext context) => screen),
   );
 }
 
