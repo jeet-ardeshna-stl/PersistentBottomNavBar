@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+
 import 'persistent-tab-view.dart';
 
 ///A highly customizable persistent navigation bar for flutter.
@@ -300,7 +301,10 @@ Future<T> pushNewScreen<T extends Object>(
           ),
         )
       : Navigator.of(context, rootNavigator: !withNavBar).push(
-          MaterialPageRoute(builder: (BuildContext context) => screen),
+          PageTransition(
+            type: PageTransitionType.leftToRight,
+            child: screen,
+          ),
         );
 }
 
@@ -339,9 +343,10 @@ Future<T> pushNewScreenWithRouteSettings<T extends Object>(
           ),
         )
       : Navigator.of(context, rootNavigator: !withNavBar).push(
-          MaterialPageRoute(
+          PageTransition(
+            type: PageTransitionType.leftToRight,
             settings: settings,
-            builder: (BuildContext context) => screen,
+            child: screen,
           ),
         );
 }
