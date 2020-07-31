@@ -303,6 +303,7 @@ Future<T> pushNewScreen<T extends Object>(
       : Navigator.of(context, rootNavigator: !withNavBar).push(
           PageTransition(
             type: PageTransitionType.rightToLeft,
+            duration: const Duration(milliseconds: 150),
             child: screen,
           ),
         );
@@ -346,6 +347,7 @@ Future<T> pushNewScreenWithRouteSettings<T extends Object>(
           PageTransition(
             type: PageTransitionType.rightToLeft,
             settings: settings,
+            duration: const Duration(milliseconds: 150),
             child: screen,
           ),
         );
